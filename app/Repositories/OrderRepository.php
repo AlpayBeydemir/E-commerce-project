@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Interfaces\IOrderRepositoryInterface;
 use App\Models\OrderDetailsModel;
-use App\Models\OrderItemsModel;
 
 class OrderRepository implements IOrderRepositoryInterface
 {

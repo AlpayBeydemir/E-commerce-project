@@ -16,6 +16,7 @@ class OrderDetailController extends Controller
     {
         $this->orderRepository = $orderRepository;
     }
+
     public function index()
     {
         return response()->json([
@@ -23,9 +24,6 @@ class OrderDetailController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request): JsonResponse
     {
         $orderDetails = $request->only([
@@ -40,9 +38,6 @@ class OrderDetailController extends Controller
         );
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id): JsonResponse
     {
         return response()->json([
@@ -50,9 +45,6 @@ class OrderDetailController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id): JsonResponse
     {
         $orderDetails = $request->only([
@@ -65,9 +57,6 @@ class OrderDetailController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $this->orderRepository->deleteOrder($id);
