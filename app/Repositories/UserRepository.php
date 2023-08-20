@@ -44,15 +44,16 @@ class UserRepository implements IUserRepositoryInterface
 
             $user = new User();
 
-            $user->name      = $request->name;
-            $user->email     = $request->email;
-            $user->password  = Hash::make($request->password);
-            $user->gender    = $request->gender;
-            $user->phone     = $request->phone;
+            $user->name          = $request->name;
+            $user->email         = $request->email;
+            $user->password      = Hash::make($request->password);
+            $user->gender        = $request->gender;
+            $user->phone         = $request->phone;
+            $user->last_login    = date('Y-m-d H:i:s');
 
             $user->save();
 
-            return $this->success("$user->name created", $user, 200);
+            return $this->success("$user->name created", $user);
 
         } catch (\Exception $e){
             return $this->error($e->getMessage(), $e->getCode());
@@ -69,16 +70,17 @@ class UserRepository implements IUserRepositoryInterface
             if (!$user){
                 return $this->error("No User with ID $userId", 404);
             }
-
-            $user->name      = $request->name;
-            $user->email     = $request->email;
-            $user->password  = Hash::make($request->password);
-            $user->gender    = $request->gender;
-            $user->phone     = $request->phone;
+            dd($request->all());
+            $user->name          = $request->name;
+            $user->email         = $request->email;
+            $user->password      = Hash::make($request->password);
+            $user->gender        = $request->gender;
+            $user->phone         = $request->phone;
+            $user->last_login    = date('Y-m-d H:i:s');
 
             $user->save();
 
-            return $this->success("$user->name created", $user, 201);
+            return $this->success("$user->name updated", $user);
 
         } catch (\Exception $e){
             return $this->error($e->getMessage(), $e->getCode());
@@ -95,7 +97,7 @@ class UserRepository implements IUserRepositoryInterface
                 return $this->error("No User with ID $userId", 404);
             }
 
-            $user->destroy();
+            $user->delete();
 
             return $this->success("User Deleted", $user);
 

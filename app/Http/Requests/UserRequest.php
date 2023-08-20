@@ -23,11 +23,11 @@ class UserRequest extends FormRequest
     {
         return [
             'name'           => ['required', 'string', 'max:255'],
-            'email'          => ['required', 'email', 'unique:users, email', 'max:255'],
+            'email'          => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password'       => ['required', 'string', 'min:8'],
             'gender'         => ['required', 'string'],
             'phone'          => ['required', 'string', 'max:20'],
-            'last_login'     => ['nullable', 'datetime'],
+            'last_login'     => ['nullable', 'date_format:Y-m-d H:i:s'],
             'remember_token' => ['nullable', 'string'],
         ];
     }

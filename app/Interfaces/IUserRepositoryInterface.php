@@ -12,7 +12,7 @@ interface IUserRepositoryInterface{
 
     public function createUser(UserRequest $request);
 
-    public function updateUser(UserRequest $request ,$userId,);
+    public function updateUser(UserRequest $request ,$userId);
 
     public function deleteUser($userId);
 }
