@@ -16,9 +16,9 @@ use App\Http\Controllers\API\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
 
 Route::get('OrderDetail', [OrderDetailController::class, 'index'])->name('OrderDetail');
 Route::get('OrderDetail/{id}', [OrderDetailController::class, 'show'])->name('OrderDetailShow');
@@ -31,3 +31,4 @@ Route::get('User/{id}', [UserController::class, 'show'])->name('UserDetail');
 Route::post('User/Store', [UserController::class, 'store'])->name('UserStore');
 Route::put('User/Update/{id}', [UserController::class, 'update'])->name('UserUpdate');
 Route::delete('User/Delete/{id}', [UserController::class, 'destroy'])->name('UserDelete');
+Route::post('User/Login', [UserController::class, 'loginUser'])->name('UserLogin');

@@ -40,5 +40,11 @@ class UserController extends Controller
     {
         return $this->userRepository->deleteUser($id);
     }
+
+    public function loginUser(UserRequest $request)
+    {
+        return $this->userRepository->loginUser($request);
+    }
+
 }
 

@@ -21,6 +21,13 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->is('post', 'api/User/Login')){
+            return [
+                'email'    => ['required', 'string', 'email'],
+                'password' => ['required', 'string', 'min:8'],
+            ];
+        }
+
         return [
             'name'           => ['required', 'string', 'max:255'],
             'email'          => ['required', 'string', 'email', 'max:255', 'unique:users,email'],

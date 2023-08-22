@@ -15,4 +15,6 @@ interface IUserRepositoryInterface{
     public function updateUser(UserRequest $request ,$userId);
 
     public function deleteUser($userId);
+
+    public function loginUser(UserRequest $request);
 }
