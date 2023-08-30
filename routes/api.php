@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\OrderDetailController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +34,15 @@ Route::post('User/Store', [UserController::class, 'store'])->name('UserStore');
 Route::put('User/Update/{id}', [UserController::class, 'update'])->name('UserUpdate');
 Route::delete('User/Delete/{id}', [UserController::class, 'destroy'])->name('UserDelete');
 Route::post('User/Login', [UserController::class, 'loginUser'])->name('UserLogin');
+
+Route::get('Categories', [CategoryController::class, 'index'])->name('Categories');
+Route::get('Category/{id}', [CategoryController::class, 'show'])->name('CategoryShow');
+Route::post('Category/Store', [CategoryController::class, 'store'])->name('CategoryStore');
+Route::put('CategoryUpdate/{id}', [CategoryController::class, 'update'])->name('CategoryUpdate');
+Route::delete('CategoryDelete/{id}', [CategoryController::class, 'destroy'])->name('CategoryDelete');
+
+Route::get('Products', [ProductController::class, 'index'])->name('Products');
+Route::get('Product/{id}', [ProductController::class, 'show'])->name('ProductDetail');
+Route::post('Product/Store', [ProductController::class, 'store'])->name('ProductStore');
+Route::put('Product/Update/{id}', [ProductController::class, 'update'])->name('ProductUpdate');
+Route::delete('Product/Delete/{id}', [ProductController::class, 'destroy'])->name('ProductDelete');

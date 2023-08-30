@@ -3,47 +3,47 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
+use App\Interfaces\IProductRepositoryInterface;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    private IProductRepositoryInterface $productRepository;
+
+    public function __construct(IProductRepositoryInterface $productRepository)
+    {
+        $this->productRepository = $productRepository;
+    }
+
     public function index()
     {
-        //
+        return response()->json([
+            'data' => $this->productRepository->getAllProducts()
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+
+    public function store(ProductRequest $request)
     {
-        //
+        dd(2);
+        return $this->productRepository->createProduct($request);
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
-        //
+        return $this->productRepository->getProductById($id);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+
+    public function update(ProductRequest $request, string $id)
     {
-        //
+        return $this->productRepository->updateProduct($request, $id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
-        //
+        return $this->productRepository->deleteProduct($id);
     }
 }

@@ -17,7 +17,7 @@ class OrderDetailController extends Controller
         $this->orderRepository = $orderRepository;
     }
 
-    public function index()
+    public function index(): JsonResponse
     {
         return response()->json([
             'data' => $this->orderRepository->getAllOrders()

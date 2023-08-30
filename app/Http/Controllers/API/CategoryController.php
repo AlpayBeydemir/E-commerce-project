@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Interfaces\ICategoryRepositoryInterface;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -21,24 +21,20 @@ class CategoryController extends Controller
         ]);
     }
 
-
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        return $this->categoryRepository->createCategory();
+        return $this->categoryRepository->createCategory($request);
     }
-
 
     public function show(string $id)
     {
-        return $this->categoryRepository->getCategoryById();
+        return $this->categoryRepository->getCategoryById($id);
     }
 
-
-    public function update(Request $request, string $id)
+    public function update(CategoryRequest $request, string $id)
     {
-        return $this->categoryRepository->updateCategory($id, $request);
+        return $this->categoryRepository->updateCategory($request, $id);
     }
-
 
     public function destroy(string $id)
     {
