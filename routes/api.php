@@ -6,6 +6,7 @@ use App\Http\Controllers\API\OrderDetailController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\ProductInventoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,3 +47,6 @@ Route::get('Product/{id}', [ProductController::class, 'show'])->name('ProductDet
 Route::post('Product/Store', [ProductController::class, 'store'])->name('ProductStore');
 Route::put('Product/Update/{id}', [ProductController::class, 'update'])->name('ProductUpdate');
 Route::delete('Product/Delete/{id}', [ProductController::class, 'destroy'])->name('ProductDelete');
+Route::get('Product/Category/{id}', [ProductController::class, 'categoryProduct'])->name('ProductCategory');
+
+Route::get('ProductInventory/{id}', [ProductInventoryController::class, 'index'])->name('ProductInventory');

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Repositories\ProductInventoryRepository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,5 +25,10 @@ class ProductModel extends Model
     public function discount(): HasMany
     {
         return $this->hasMany(DiscountModel::class);
+    }
+
+    public function inventory(): HasMany
+    {
+        return $this->hasMany(ProductInventoryModel::class, 'product_id', 'id');
     }
 }

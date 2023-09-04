@@ -10,6 +10,8 @@ interface IProductRepositoryInterface
 
     public function getProductById($productId);
 
+    public function getProductByCategory($categoryId);
+
     public function createProduct(ProductRequest $request);
 
     public function updateProduct(ProductRequest $request, $productId);

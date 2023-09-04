@@ -4,7 +4,7 @@ namespace App\Traits;
 
 trait ResponseAPI
 {
-    public function coreResponse($message, $data = null, $statusCode, $isSuccess = true)
+    public function coreResponse($message, $data = null, $statusCode = 200, $isSuccess = true)
     {
         if (!$message){
             return response()->json(['message' => 'Message is required'], 500);
