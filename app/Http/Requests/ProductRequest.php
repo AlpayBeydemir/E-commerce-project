@@ -22,10 +22,12 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => ['required', 'string'],
+            'category_id' => ['required', 'numeric'],
             'name' => ['required', 'string', 'max:255'],
-            'price' => ['required', 'decimal:5'],
+            'price' => ['required', 'decimal:2'], // TODO decimal between olmalı
             'description' => ['required', 'string'],
         ];
     }
+
+//    TODO:: Mesajları vermen lazım
 }

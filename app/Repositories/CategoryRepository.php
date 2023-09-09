@@ -6,74 +6,56 @@ use App\Http\Requests\CategoryRequest;
 use App\Interfaces\ICategoryRepositoryInterface;
 use App\Models\CategoryModel;
 use App\Traits\ResponseAPI;
+use Illuminate\Database\Eloquent\Collection;
 
 class CategoryRepository implements ICategoryRepositoryInterface
 {
     use ResponseAPI;
-    public function getAllCategories()
+    public function getAllCategories(): Collection
     {
-        try {
-            $categories = CategoryModel::all();
-            return $this->success("All Categories", $categories);
-        } catch (\Exception $e){
-            return $this->error($e->getMessage(), $e->getCode());
-        }
+        $categories = CategoryModel::all();
+        return $categories;
+//        try {
+//            $categories = CategoryModel::all();
+//            return $categories;
+////            return $this->success("All Categories", $categories);
+//
+//        } catch (\Exception $e){
+//            return $this->error($e->getMessage(), $e->getCode());
+//        }
     }
 
     public function getCategoryById($categoryId)
     {
-        try {
-            $category = CategoryModel::findOrFail($categoryId);
+        return CategoryModel::find($categoryId);
+    }
 
-            if (!$categoryId){
-                return $this->error("No Category with ID $categoryId", 404);
-            }
+    public function createCategory($request)
+    {
+        $category = new CategoryModel();
 
-            return $this->success("Category Detail", $category);
+        $category->name = $request->name;
+        $category->save();
 
-        } catch (\Exception $e){
-            return $this->error($e->getMessage(), $e->getCode());
+        if ($category->save()){
+            return $category;
+        } else {
+            return null;
         }
     }
 
-    public function createCategory(CategoryRequest $request)
+    public function updateCategory($request, $categoryId)
     {
-        try {
+        $category = CategoryModel::find($categoryId);
 
-            $category = new CategoryModel();
-
-            $category->name = $request->name;
-            $category->save();
-
-            return $this->success("$category->name created", [
-                'category' => $category,
-            ]);
-
-        } catch (\Exception $e){
-            return $this->error($e->getMessage(), $e->getCode());
+        if (!$category){
+            return $this->error("No Category with ID $categoryId", 404);
         }
-    }
 
-    public function updateCategory(CategoryRequest $request,$categoryId)
-    {
-        try {
+        $category->name = $request->name;
+        $category->save();
 
-            $category = CategoryModel::findOrFail($categoryId);
-
-            if (!$categoryId){
-                return $this->error("No Category with ID $categoryId", 404);
-            }
-
-            $category->name = $request->name;
-            $category->save();
-
-            return $this->success("$category->name updated", [
-                'category' => $category,
-            ]);
-
-        } catch (\Exception $e){
-            return $this->error($e->getMessage(), $e->getCode());
-        }
+        return $category;
     }
 
     public function deleteCategory($categoryId)

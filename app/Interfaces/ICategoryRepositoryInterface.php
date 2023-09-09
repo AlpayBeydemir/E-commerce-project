@@ -2,7 +2,8 @@
 
 namespace App\Interfaces;
 
-use App\Http\Requests\CategoryRequest;
+//use App\Http\Requests\CategoryRequest;
+use App\Models\CategoryModel;
 
 interface ICategoryRepositoryInterface
 {
@@ -10,9 +11,9 @@ interface ICategoryRepositoryInterface
 
     public function getCategoryById($categoryId);
 
-    public function createCategory(CategoryRequest $request);
+    public function createCategory(CategoryModel $category);
 
-    public function updateCategory(CategoryRequest $request, $categoryId);
+    public function updateCategory(CategoryModel $category, $categoryId);
 
     public function deleteCategory($categoryId);
 }

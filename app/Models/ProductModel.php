@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class ProductModel extends Model
 {
     use HasFactory;
+    protected $table = 'product';
 
     public function category(): BelongsTo
     {

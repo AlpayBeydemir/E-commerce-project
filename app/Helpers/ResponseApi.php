@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Traits;
-
-trait ResponseAPI
+namespace App\Helpers;
+class ResponseApi
 {
     public function coreResponse($message, $data = null, int $statusCode = 200, $isSuccess = true)
     {

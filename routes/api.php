@@ -43,8 +43,8 @@ Route::put('CategoryUpdate/{id}', [CategoryController::class, 'update'])->name('
 Route::delete('CategoryDelete/{id}', [CategoryController::class, 'destroy'])->name('CategoryDelete');
 
 Route::get('Products', [ProductController::class, 'index'])->name('Products');
-Route::get('Product/{id}', [ProductController::class, 'show'])->name('ProductDetail');
 Route::post('Product/Store', [ProductController::class, 'store'])->name('ProductStore');
+Route::get('Product/{id}', [ProductController::class, 'show'])->name('ProductDetail');
 Route::put('Product/Update/{id}', [ProductController::class, 'update'])->name('ProductUpdate');
 Route::delete('Product/Delete/{id}', [ProductController::class, 'destroy'])->name('ProductDelete');
 Route::get('Product/Category/{id}', [ProductController::class, 'categoryProduct'])->name('ProductCategory');

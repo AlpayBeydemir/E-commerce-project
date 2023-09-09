@@ -18,7 +18,7 @@ class ProductRepository implements IProductRepositoryInterface
             $products = ProductModel::all();
             return $this->success("All Products", $products);
         } catch (\Exception $e){
-            return $this->error($e->getMessage(), $e->getCode());
+            return $this->error($e->getMessage(), 500);
         }
     }
 
@@ -34,7 +34,7 @@ class ProductRepository implements IProductRepositoryInterface
             return $this->success("Product Detail", $product);
 
         } catch (\Exception $e){
-            return $this->error($e->getMessage(), $e->getCode());
+            return $this->error($e->getMessage(), 500);
         }
     }
 
@@ -56,7 +56,7 @@ class ProductRepository implements IProductRepositoryInterface
             ]);
 
         } catch (\Exception $e){
-            return $this->error($e->getMessage(), $e->getCode());
+            return $this->error($e->getMessage(), 500);
         }
     }
 

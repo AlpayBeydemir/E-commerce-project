@@ -5,21 +5,21 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Interfaces\IProductRepositoryInterface;
+use App\Repositories\ProductRepository;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     private IProductRepositoryInterface $productRepository;
 
-    public function __construct(IProductRepositoryInterface $productRepository)
+    public function __construct()
     {
-        $this->productRepository = $productRepository;
+        $this->productRepository = new ProductRepository();
     }
 
     public function index()
     {
-        return response()->json([
-            'data' => $this->productRepository->getAllProducts(),
-        ]);
+        return $this->productRepository->getAllProducts();
     }
 
     public function store(ProductRequest $request)
@@ -29,6 +29,7 @@ class ProductController extends Controller
 
     public function show(string $id)
     {
+        dd(212);
         return $this->productRepository->getProductById($id);
     }
 
