@@ -75,11 +75,10 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, string $id)
     {
         try {
-            
             $update = $this->categoryRepository->updateCategory($request, $id);
 
             if ($update){
-                $this->responseApi->success("Category Updated", $update);
+                return $this->responseApi->success("Category Updated", $update);
             } else {
                 return $this->responseApi->error("Error");
             }

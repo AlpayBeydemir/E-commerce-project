@@ -13,16 +13,7 @@ class CategoryRepository implements ICategoryRepositoryInterface
     use ResponseAPI;
     public function getAllCategories(): Collection
     {
-        $categories = CategoryModel::all();
-        return $categories;
-//        try {
-//            $categories = CategoryModel::all();
-//            return $categories;
-////            return $this->success("All Categories", $categories);
-//
-//        } catch (\Exception $e){
-//            return $this->error($e->getMessage(), $e->getCode());
-//        }
+        return CategoryModel::all();
     }
 
     public function getCategoryById($categoryId)
@@ -55,7 +46,11 @@ class CategoryRepository implements ICategoryRepositoryInterface
         $category->name = $request->name;
         $category->save();
 
-        return $category;
+        if ($category->save()){
+            return $category;
+        } else {
+            return null;
+        }
     }
 
     public function deleteCategory($categoryId)

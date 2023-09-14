@@ -40,7 +40,7 @@ class CategoryRequest extends FormRequest
     public function messages(): array
     {
         return [
-          'name.required' => 'Category Name required.'
+          'name.required' => ':attribute is required.'
         ];
     }
 
