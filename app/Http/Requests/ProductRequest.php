@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ProductRequest extends FormRequest
 {
@@ -29,5 +31,21 @@ class ProductRequest extends FormRequest
         ];
     }
 
-//    TODO:: Mesajları vermen lazım
+    public function attributes(): array
+    {
+        return [
+            'category_id' => 'Category',
+            'name' => 'Product Name',
+            'price' => 'Price',
+            'description' => 'Product Description'
+        ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'message' => 'The given data was invalid.',
+            'errors' => $validator->errors(),
+        ], 422));
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Interfaces;
 
 use App\Http\Requests\ProductRequest;
+use App\Models\ProductModel;
 
 interface IProductRepositoryInterface
 {
@@ -12,9 +13,9 @@ interface IProductRepositoryInterface
 
     public function getProductByCategory($categoryId);
 
-    public function createProduct(ProductRequest $request);
+    public function createProduct(ProductModel $product);
 
-    public function updateProduct(ProductRequest $request, $productId);
+    public function updateProduct(ProductModel $product, $productId);
 
     public function deleteProduct($productId);
 }

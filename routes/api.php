@@ -39,8 +39,8 @@ Route::post('User/Login', [UserController::class, 'loginUser'])->name('UserLogin
 Route::get('Categories', [CategoryController::class, 'index'])->name('Categories');
 Route::get('Category/{id}', [CategoryController::class, 'show'])->name('CategoryShow');
 Route::post('Category/Store', [CategoryController::class, 'store'])->name('CategoryStore');
-Route::put('CategoryUpdate/{id}', [CategoryController::class, 'update'])->name('CategoryUpdate');
-Route::delete('CategoryDelete/{id}', [CategoryController::class, 'destroy'])->name('CategoryDelete');
+Route::put('Category/Update/{id}', [CategoryController::class, 'update'])->name('CategoryUpdate');
+Route::delete('Category/Delete/{id}', [CategoryController::class, 'destroy'])->name('CategoryDelete');
 
 Route::get('Products', [ProductController::class, 'index'])->name('Products');
 Route::post('Product/Store', [ProductController::class, 'store'])->name('ProductStore');

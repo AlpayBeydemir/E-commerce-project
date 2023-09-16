@@ -7,6 +7,7 @@ use App\Interfaces\IProductRepositoryInterface;
 use App\Models\CategoryModel;
 use App\Models\ProductModel;
 use App\Traits\ResponseAPI;
+use Illuminate\Support\Facades\Auth;
 
 class ProductRepository implements IProductRepositoryInterface
 {
@@ -14,115 +15,75 @@ class ProductRepository implements IProductRepositoryInterface
 
     public function getAllProducts()
     {
-        try {
-            $products = ProductModel::all();
-            return $this->success("All Products", $products);
-        } catch (\Exception $e){
-            return $this->error($e->getMessage(), 500);
-        }
+        return ProductModel::all();
     }
 
     public function getProductById($productId)
     {
-        try {
+        return ProductModel::find($productId);
+    }
 
-            $product = ProductModel::findOrFail($productId);
+    public function createProduct($request)
+    {
+        $product = new ProductModel();
 
-            if (!$product){
-                return $this->error("No Product with ID $productId", 404);
-            }
-            return $this->success("Product Detail", $product);
+        $product->category_id = $request->category_id;
+        $product->name        = $request->name;
+        $product->price       = $request->price;
+        $product->description = $request->description;
 
-        } catch (\Exception $e){
-            return $this->error($e->getMessage(), 500);
+        $product->save();
+
+        if ($product->save()){
+            return $product;
+        } else {
+            return null;
         }
     }
 
-    public function createProduct(ProductRequest $request)
+    public function updateProduct($request, $productId)
     {
-        try {
+        $product = ProductModel::findOrFail($productId);
 
-            $product = new ProductModel();
-
-            $product->category_id = $request->category_id;
-            $product->name        = $request->name;
-            $product->price       = $request->price;
-            $product->description = $request->description;
-
-            $product->save();
-
-            return $this->success("$product->name created", [
-                'product' => $product,
-            ]);
-
-        } catch (\Exception $e){
-            return $this->error($e->getMessage(), 500);
+        if (!$product){
+            return $this->error("No Product with ID $productId", 404);
         }
-    }
 
-    public function updateProduct(ProductRequest $request, $productId)
-    {
-        try {
+        $product->category_id = $request->category_id;
+        $product->name        = $request->name;
+        $product->price       = $request->price;
+        $product->description = $request->description;
 
-            $product = ProductModel::findOrFail($productId);
+        $product->save();
 
-            if (!$product){
-                return $this->error("No Product with ID $productId", 404);
-            }
-
-            $product->category_id = $request->category_id;
-            $product->name        = $request->name;
-            $product->price       = $request->price;
-            $product->description = $request->description;
-
-            $product->save();
-
-            return $this->success("$product->name updated", [
-                'product' => $product,
-            ]);
-
-        } catch (\Exception $e){
-            return $this->error($e->getMessage(), $e->getCode());
+        if ($product->save()){
+            return $product;
+        } else {
+            return null;
         }
     }
 
     public function deleteProduct($productId)
     {
-        try {
+        $product = ProductModel::findOrFail($productId);
+        if (!$product){
+            return $this->error("No Product with ID $productId", 404);
+        }
 
-            $product = ProductModel::findOrFail($productId);
+        $product->deleted = 1;
+        $product->deleted_at = date('Y-m-d H:i:s');
 
-            if (!$product){
-                return $this->error("No Product with ID $productId", 404);
-            }
+        $product->save();
 
-            $product->deleted = 1;
-
-            $product->save();
-
-            return $this->success("$product->name deleted", [
-                'product' => $product,
-            ]);
-
-        } catch (\Exception $e){
-            return $this->error($e->getMessage(), $e->getCode());
+        if ($product->save()){
+            return $product;
+        } else {
+            return null;
         }
     }
 
     public function getProductByCategory($categoryId)
     {
-        try {
-
-            if (is_numeric($categoryId) && intval($categoryId) > 0){
-
-                $products = ProductModel::where('category_id', $categoryId)->get();
-                $category = CategoryModel::findOrFail($categoryId);
-                return $this->success("$category->name Products", $products);
-            } else {
-                return $this->error("No Category Product with $categoryId", 404);
-            }
-        } catch (\Exception $e){
-            return $this->error($e->getMessage(), $e->getCode());
-        }
+        return ProductModel::where('category_id', $categoryId)->where('deleted', 0)->get();
     }
 }

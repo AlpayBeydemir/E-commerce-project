@@ -61,10 +61,10 @@ class CategoryController extends Controller
 
             $category = $this->categoryRepository->getCategoryById($id);
 
-            if (!$category){
-                return $this->responseApi->error("No Category with ID $id", 404);
-            } else {
+            if ($category){
                 return $this->responseApi->success("$category->name", $category);
+            } else {
+                return $this->responseApi->error("No Category with ID $id", 404);
             }
 
         } catch (\Exception $exception){
