@@ -50,3 +50,6 @@ Route::delete('Product/Delete/{id}', [ProductController::class, 'destroy'])->nam
 Route::get('Product/Category/{id}', [ProductController::class, 'categoryProduct'])->name('ProductCategory');
 
 Route::get('ProductInventory/{id}', [ProductInventoryController::class, 'index'])->name('ProductInventory');
+Route::post('ProductInventory/Store', [ProductInventoryController::class, 'store'])->name('ProductInventoryStore');
+Route::put('ProductInventory/Update/{id}', [ProductInventoryController::class, 'update'])->name('ProductInventoryUpdate');
+Route::delete('ProductInventory/Delete/{id}', [ProductInventoryController::class, 'destroy'])->name('ProductInventoryDelete');
