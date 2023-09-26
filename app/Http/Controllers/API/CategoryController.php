@@ -30,7 +30,7 @@ class CategoryController extends Controller
             if (count($data) > 0) {
                 return $this->responseApi->success("All categories", $data);
             } else {
-                return $this->responseApi->error("Error");
+                return [];
             }
 
         } catch (\Exception $exception) {

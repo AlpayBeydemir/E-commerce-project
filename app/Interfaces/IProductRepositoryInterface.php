@@ -15,7 +15,7 @@ interface IProductRepositoryInterface
 
     public function createProduct(ProductModel $product);
 
-    public function updateProduct(ProductModel $product, $productId);
+    public function updateProduct(ProductModel $product, int $productId);
 
     public function deleteProduct($productId);
 }

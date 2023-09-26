@@ -7,6 +7,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\ProductInventoryController;
+use App\Http\Controllers\API\ShoppingCartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,3 +54,6 @@ Route::get('ProductInventory/{id}', [ProductInventoryController::class, 'index']
 Route::post('ProductInventory/Store', [ProductInventoryController::class, 'store'])->name('ProductInventoryStore');
 Route::put('ProductInventory/Update/{id}', [ProductInventoryController::class, 'update'])->name('ProductInventoryUpdate');
 Route::delete('ProductInventory/Delete/{id}', [ProductInventoryController::class, 'destroy'])->name('ProductInventoryDelete');
+
+Route::get('ShoppingCarts', [ShoppingCartController::class, 'index'])->name('ShoppingCarts');
+Route::post('ShoppingCart/Store', [ShoppingCartController::class, 'store'])->name('ShoppingCartStore');

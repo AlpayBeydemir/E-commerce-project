@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Interfaces\IProductRepositoryInterface;
 use App\Repositories\ProductRepository;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -29,7 +28,7 @@ class ProductController extends Controller
             if (count($products) > 0) {
                 return $this->responseApi->success('All Products', $products);
             } else {
-                return $this->responseApi->error("Error");
+                return [];
             }
         } catch (\Exception $exception) {
             return $this->responseApi->error($exception->getMessage(), $exception->getCode());
