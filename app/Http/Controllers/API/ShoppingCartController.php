@@ -60,15 +60,39 @@ class ShoppingCartController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+
+            $shoppingCart = $this->shoppingChartRepository->getShopCartByUserId($id);
+
+            if ($shoppingCart){
+                return $this->responseApi->success("User Shopping Cart", $shoppingCart);
+            } else {
+                return $this->responseApi->error("Error");
+            }
+
+        } catch (\Exception $exception){
+            return $this->responseApi->error($exception->getMessage(), $exception->getCode());
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ShoppingCartRequest $request, string $id)
     {
-        //
+        try {
+
+            $update = $this->shoppingChartRepository->updateShopCart($request, $id);
+
+            if ($update){
+                return $this->responseApi->success("Shopping Cart Updated", $update);
+            } else {
+                return $this->responseApi->error("Error");
+            }
+
+        } catch (\Exception $exception){
+            return $this->responseApi->error($exception->getMessage(), $exception->getCode());
+        }
     }
 
     /**

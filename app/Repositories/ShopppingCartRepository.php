@@ -16,25 +16,28 @@ class ShopppingCartRepository implements IShoppingChartRepositoryInterface
         return ShoppingCartModel::all();
     }
 
-    public function getShopCartByUserId($productId)
+    public function getShopCartByUserId($userId)
     {
-        return ShoppingCartModel::where('user_id', Auth::user()->id)->where('deleted', 0)->orderBy('id', 'DESC')->first();
+        return ShoppingCartModel::where('user_id', $userId)->where('deleted', 0)->orderBy('id', 'DESC')->get();
     }
 
     public function createShopCart($shoppingCart)
     {
+        try {
+            $shopping_cart = new ShoppingCartModel();
+            $shopping_cart->user_id = $shoppingCart->user_id;
+            $shopping_cart->product_id = $shoppingCart->product_id;
+            $shopping_cart->quantity = $shoppingCart->quantity;
 
-        $shopping_cart = new ShoppingCartModel();
+            $shopping_cart->save();
 
-        $shopping_cart->user_id = $shoppingCart->user_id;
-        $shopping_cart->product_id = $shoppingCart->product_id;
-        $shopping_cart->quantity = $shoppingCart->quantity;
-        $shopping_cart->save();
-
-        if ($shopping_cart->save()) {
-            return $shopping_cart;
-        } else {
-            return null;
+            if ($shopping_cart->save()) {
+                return $shopping_cart;
+            } else {
+                return null;
+            }
+        } catch (\Exception $e) {
+            dd($e->getCode(), $e->getMessage());
         }
     }
 

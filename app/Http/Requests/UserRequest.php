@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class UserRequest extends FormRequest
 {
@@ -37,5 +39,36 @@ class UserRequest extends FormRequest
             'last_login'     => ['nullable', 'date_format:Y-m-d H:i:s'],
             'remember_token' => ['nullable', 'string'],
         ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'name' => 'User Name',
+            'email' => 'Email',
+            'password' => 'Password',
+            'gender' => 'Gender',
+            'phone' => 'Phone'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+          'name.required' => ':attribute is required.',
+          'email.required' => ':attribute is required.',
+          'password.required' => ':attribute is required.',
+          'password.min' => ':attribute is should be minimum 8 character.',
+          'gender.required' => ':attribute is required.',
+          'phone.required' => ':attribute is required.',
+        ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'message' => 'The given data was invalid.',
+            'errors' => $validator->errors(),
+        ], 422));
     }
 }

@@ -16,99 +16,69 @@ class UserRepository implements IUserRepositoryInterface
 
     public function getAllUsers()
     {
-        try {
-            $users = User::all();
-            return $this->success("All Users", $users);
-        } catch (\Exception $e){
-            return $this->error($e->getMessage(), $e->getCode());
-        }
+        return User::all();
     }
 
     public function getUserById($userId)
     {
-        try {
-            $user = User::findOrFail($userId);
-
-            if (!$user){
-                return $this->error("No User with ID $userId", 404);
-            }
-
-            return $this->success("User Detail", $user);
-        } catch (\Exception $e){
-            return $this->error($e->getMessage(), $e->getCode());
-        }
+        return User::findOrFail($userId);
     }
 
     public function createUser(UserRequest $request)
     {
-        try {
+        $user = new User();
 
-            $user = new User();
+        $user->name          = $request->name;
+        $user->email         = $request->email;
+        $user->password      = Hash::make($request->password);
+        $user->gender        = $request->gender;
+        $user->phone         = $request->phone;
+        $user->last_login    = date('Y-m-d H:i:s');
 
-            $user->name          = $request->name;
-            $user->email         = $request->email;
-            $user->password      = Hash::make($request->password);
-            $user->gender        = $request->gender;
-            $user->phone         = $request->phone;
-            $user->last_login    = date('Y-m-d H:i:s');
+        $user->save();
 
-            $user->save();
+        $token = $user->createToken('API Token')->plainTextToken;
 
-            $token = $user->createToken('API Token')->plainTextToken;
+        $userInfo = [$user, $token];
 
-            return $this->success("$user->name created", [
-                'user'  => $user,
-                'token' => $token
-            ]);
-
-        } catch (\Exception $e){
-            return $this->error($e->getMessage(), $e->getCode());
+        if ($user->save()){
+            return $userInfo;
+        } else {
+            return null;
         }
     }
 
     public function updateUser(UserRequest $request, $userId)
     {
-        try {
+        $user = User::findOrFail($userId);
 
-            $user = User::findOrFail($userId);
+        $user->name          = $request->name;
+        $user->email         = $request->email;
+        $user->password      = Hash::make($request->password);
+        $user->gender        = $request->gender;
+        $user->phone         = $request->phone;
+        $user->last_login    = date('Y-m-d H:i:s');
 
-            if (!$user){
-                return $this->error("No User with ID $userId", 404);
-            }
+        $user->save();
 
-            $user->name          = $request->name;
-            $user->email         = $request->email;
-            $user->password      = Hash::make($request->password);
-            $user->gender        = $request->gender;
-            $user->phone         = $request->phone;
-            $user->last_login    = date('Y-m-d H:i:s');
-
-            $user->save();
-
-            return $this->success("$user->name updated", $user);
-
-        } catch (\Exception $e){
-            return $this->error($e->getMessage(), $e->getCode());
+        if ($user->save()){
+            return $user;
+        } else {
+            return null;
         }
     }
 
     public function deleteUser($userId)
     {
-        try {
+        $user = User::findOrFail($userId);
 
-            $user = User::findOrFail($userId);
-
-            if (!$user){
-                return $this->error("No User with ID $userId", 404);
-            }
-
-            $user->delete();
-
-            return $this->success("User Deleted", $user);
-
-        } catch (\Exception $e){
-            return $this->error($e->getMessage(), $e->getCode());
+        if (!$user){
+            return $this->error("No User with ID $userId", 404);
         }
+
+        $user->delete();
+
+        return $this->success("User Deleted", $user);
     }
 
     public function loginUser(UserRequest $request)

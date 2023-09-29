@@ -57,3 +57,5 @@ Route::delete('ProductInventory/Delete/{id}', [ProductInventoryController::class
 
 Route::get('ShoppingCarts', [ShoppingCartController::class, 'index'])->name('ShoppingCarts');
 Route::post('ShoppingCart/Store', [ShoppingCartController::class, 'store'])->name('ShoppingCartStore');
+Route::get('ShoppingCart/{id}', [ShoppingCartController::class, 'show'])->name('ShoppingCartShow');
+Route::put('ShoppingCart/Update/{id}', [ShoppingCartController::class, 'update'])->name('ShoppingCartShow');
