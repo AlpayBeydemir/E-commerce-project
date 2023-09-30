@@ -2,7 +2,6 @@
 
 namespace App\Interfaces;
 
-//use App\Http\Requests\CategoryRequest;
 use App\Models\CategoryModel;
 
 interface ICategoryRepositoryInterface

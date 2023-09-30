@@ -10,5 +10,5 @@ interface IShoppingChartRepositoryInterface
     public function getShopCartByUserId($userId);
     public function createShopCart(ShoppingCartModel $shoppingCart);
     public function updateShopCart(ShoppingCartModel $shoppingCart, int $cartId);
-    public function deleteAllProductsInShopCart(int $userId);
+    public function deleteUserAllProductsInShopCart(int $userId);
 }

@@ -61,7 +61,7 @@ class ShopppingCartRepository implements IShoppingChartRepositoryInterface
         }
     }
 
-    public function deleteAllProductsInShopCart($userId)
+    public function deleteUserAllProductsInShopCart($userId)
     {
         $shopping_cart = ShoppingCartModel::findOrFail($userId);
 

@@ -55,9 +55,6 @@ class ShoppingCartController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         try {
@@ -75,9 +72,6 @@ class ShoppingCartController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(ShoppingCartRequest $request, string $id)
     {
         try {
@@ -95,11 +89,20 @@ class ShoppingCartController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        try {
+
+            $delete = $this->shoppingChartRepository->deleteUserAllProductsInShopCart($id);
+
+            if ($delete){
+                return $this->responseApi->success("Shopping Cart Deleted", $delete);
+            } else {
+                return $this->responseApi->error("Error");
+            }
+
+        } catch (\Exception $exception){
+            return $this->responseApi->error($exception->getMessage(), $exception->getCode());
+        }
     }
 }

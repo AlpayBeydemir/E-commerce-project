@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-use App\Http\Requests\UserRequest;
+use App\Models\User;
 
 interface IUserRepositoryInterface{
 
@@ -10,11 +10,11 @@ interface IUserRepositoryInterface{
 
     public function getUserById($userId);
 
-    public function createUser(UserRequest $request);
+    public function createUser(User $request);
 
-    public function updateUser(UserRequest $request ,$userId);
+    public function updateUser(User $request ,$userId);
 
     public function deleteUser($userId);
 
-    public function loginUser(UserRequest $request);
+    public function loginUser(User $request);
 }
