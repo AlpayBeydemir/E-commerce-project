@@ -24,7 +24,7 @@ class UserRepository implements IUserRepositoryInterface
         return User::findOrFail($userId);
     }
 
-    public function createUser(UserRequest $request)
+    public function createUser($request)
     {
         $user = new User();
 
@@ -48,7 +48,7 @@ class UserRepository implements IUserRepositoryInterface
         }
     }
 
-    public function updateUser(UserRequest $request, $userId)
+    public function updateUser($request, $userId)
     {
         $user = User::findOrFail($userId);
 
@@ -81,7 +81,7 @@ class UserRepository implements IUserRepositoryInterface
         return $this->success("User Deleted", $user);
     }
 
-    public function loginUser(UserRequest $request)
+    public function loginUser($request)
     {
         try {
 
